@@ -1,44 +1,18 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Block.tscn" type="PackedScene" id=1]
+[ext_resource path="res://TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 54, 63 )
+z_index = 10
 JUMP_FORCE = -160
 MIN_JUMP_FORCE = -40
 MAX_SPEED = 75
 GRAVITY = 5
 FALL_GRAVITY = 2
 
-[node name="Block" parent="." instance=ExtResource( 1 )]
-position = Vector2( 45, 99 )
-
-[node name="Block2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 63, 99 )
-
-[node name="Block3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 81, 99 )
-
-[node name="Block4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 99, 99 )
-
-[node name="Block5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 99, 81 )
-
-[node name="Block7" parent="." instance=ExtResource( 1 )]
-position = Vector2( 117, 81 )
-
-[node name="Block8" parent="." instance=ExtResource( 1 )]
-position = Vector2( 117, 63 )
-
-[node name="Block9" parent="." instance=ExtResource( 1 )]
-position = Vector2( 135, 63 )
-
-[node name="Block10" parent="." instance=ExtResource( 1 )]
-position = Vector2( 153, 63 )
-
-[node name="Block11" parent="." instance=ExtResource( 1 )]
-position = Vector2( 171, 63 )
+[node name="TileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 0, 0, 0, 14, 1, 65537, 15, 1, 65539, 65536, 0, 0, 65550, 1, 393217, 65551, 1, 393219, 131072, 0, 0, 131086, 1, 393217, 131087, 1, 393219, 262143, 1, 65537, 196608, 1, 65539, 196620, 1, 65537, 196621, 1, 65538, 196622, 1, 65541, 196623, 1, 393219, 327679, 1, 393217, 262144, 1, 65540, 262145, 1, 65539, 262155, 1, 65537, 262156, 1, 65541, 262157, 1, 393218, 262158, 1, 393218, 262159, 1, 393219, 393215, 1, 458753, 327680, 1, 5, 327681, 1, 65540, 327682, 1, 65538, 327683, 1, 65539, 327690, 1, 65537, 327691, 1, 65541, 327692, 1, 393218, 327693, 1, 393218, 327694, 1, 393218, 327695, 1, 393219, 393216, 1, 458753, 393217, 1, 458754, 393218, 1, 5, 393219, 1, 65540, 393220, 1, 65538, 393221, 1, 65538, 393222, 1, 65538, 393223, 1, 65538, 393224, 1, 65538, 393225, 1, 65538, 393226, 1, 65541, 393227, 1, 393218, 393228, 1, 393218, 393229, 1, 393218, 393230, 1, 393218, 393231, 1, 393219, 458754, 1, 458753, 458755, 1, 458754, 458756, 1, 458754, 458757, 1, 458754, 458758, 1, 458754, 458759, 1, 458754, 458760, 1, 458754, 458761, 1, 458754, 458762, 1, 458754, 458763, 1, 458754, 458764, 1, 458754, 458765, 1, 458754, 458766, 1, 458754, 458767, 1, 458755 )

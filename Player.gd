@@ -41,6 +41,7 @@ func _physics_process(delta):
 			
 		if velocity.y > 0:
 			velocity.y += FALL_GRAVITY
+			velocity.y = min(velocity.y, 200)
 
 	var was_in_air = not is_on_floor()
 	velocity = move_and_slide(velocity, Vector2.UP)
