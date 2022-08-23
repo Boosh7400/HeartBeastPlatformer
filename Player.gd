@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export(int) var JUMP_FORCE = -130
 export(int) var MIN_JUMP_FORCE = -70
@@ -13,7 +14,8 @@ var velocity = Vector2.ZERO
 onready var animatedSprite = $AnimatedSprite
 
 func _ready():
-	animatedSprite.frames = load("res://PlayerGreenSkin.tres")
+	#animatedSprite.frames = load("res://PlayerGreenSkin.tres")
+	pass
 
 func _physics_process(delta):
 	apply_gravity()
