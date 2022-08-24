@@ -20,21 +20,28 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 5.5, 5 )
+extents = Vector2( 6, 5 )
 
 [node name="Enemy" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -12 )
 frames = SubResource( 3 )
 animation = "Walk"
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -5 )
+position = Vector2( 0, -5 )
 shape = SubResource( 4 )
 
-[node name="LedgeCheck" type="RayCast2D" parent="."]
-position = Vector2( 5, -1 )
+[node name="LedgeCheckRight" type="RayCast2D" parent="."]
+position = Vector2( 6, -1 )
+enabled = true
+cast_to = Vector2( 0, 2 )
+
+[node name="LedgeCheckLeft" type="RayCast2D" parent="."]
+position = Vector2( -6, -1 )
 enabled = true
 cast_to = Vector2( 0, 2 )
