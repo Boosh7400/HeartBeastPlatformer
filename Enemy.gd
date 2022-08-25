@@ -15,4 +15,5 @@ func _physics_process(delta):
 	
 	sprite.flip_h = direction.x > 0
 	velocity = direction * 25
+	sprite.animation = "Walk"
 	move_and_slide(velocity, Vector2.UP)

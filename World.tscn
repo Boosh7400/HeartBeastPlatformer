@@ -12,11 +12,6 @@ script = ExtResource( 4 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 261, 54 )
 z_index = 10
-JUMP_FORCE = -160
-MIN_JUMP_FORCE = -40
-MAX_SPEED = 75
-GRAVITY = 5
-FALL_GRAVITY = 2
 
 [node name="TileMap" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 9 )
