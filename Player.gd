@@ -72,12 +72,26 @@ func move_state(input):
 		coyote_jump = true
 		coyoteJumpTimer.start()
 
+func climb_state(input):
+	if not is_on_ladder(): state = MOVE
+	if input.length() != 0:
+		animatedSprite.animation = "Run"
+	else:
+		animatedSprite.animation = "Idle"
+	velocity = input * moveData.CLIMB_SPEED
+	velocity = move_and_slide(velocity, Vector2.UP)
+
+func player_die():
+	get_tree().reload_current_scene()
+	SoundPlayer.play_sound(SoundPlayer.HIT)
+
 func input_jump_release():
 	if Input.is_action_just_released("ui_up") && velocity.y < moveData.MIN_JUMP_FORCE:
 		velocity.y = moveData.MIN_JUMP_FORCE
 
 func input_double_jump():
 	if Input.is_action_just_pressed("ui_up") and double_jump > 0:
+		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		velocity.y = moveData.JUMP_FORCE
 		double_jump -= 1
 
@@ -99,20 +113,12 @@ func can_jump():
 
 func input_jump():
 	if Input.is_action_just_pressed("ui_up") or buffered_jump:
-			velocity.y = moveData.JUMP_FORCE
-			buffered_jump = false
+		SoundPlayer.play_sound(SoundPlayer.JUMP)
+		velocity.y = moveData.JUMP_FORCE
+		buffered_jump = false
 
 func reset_double_jump():
 	double_jump = moveData.DOUBLE_JUMP_COUNT
-
-func climb_state(input):
-	if not is_on_ladder(): state = MOVE
-	if input.length() != 0:
-		animatedSprite.animation = "Run"
-	else:
-		animatedSprite.animation = "Idle"
-	velocity = input * moveData.CLIMB_SPEED
-	velocity = move_and_slide(velocity, Vector2.UP)
 
 func is_on_ladder():
 	if not ladderCheck.is_colliding(): return false
@@ -129,8 +135,8 @@ func apply_friction():
 func apply_acceleration(amount):
 	velocity.x = move_toward(velocity.x, moveData.MAX_SPEED*amount, moveData.ACCELERATION)
 
-
 func _on_JumpBufferTimer_timeout():
 	buffered_jump = false
+
 func _on_CoyoteJumpTimer_timeout():
 	coyote_jump = false
