@@ -1,0 +1,12 @@
+extends Area2D
+
+onready var animated_sprite: = $AnimatedSprite
+
+var active = true
+
+func _on_Checkpoint_body_entered(body):
+	if not body is Player: return
+	if not active: return
+	animated_sprite.play("checked")
+	active = false
+	Events.emit_signal("hit_checkpoint", position)
