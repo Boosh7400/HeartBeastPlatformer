@@ -27,23 +27,23 @@ func _physics_process(delta):
 	input.x = Input.get_axis("ui_left", "ui_right")
 	input.y = Input.get_axis("ui_up", "ui_down")
 	match state:
-		MOVE: move_state(input)
-		CLIMB: climb_state(input)
+		MOVE: move_state(input, delta)
+		CLIMB: climb_state(input, delta)
 
 func connect_camera(camera):
 	var camera_path = camera.get_path()
 	remoteTransform2D.remote_path = camera_path
 
-func move_state(input):
+func move_state(input, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"): state = CLIMB
 	
-	apply_gravity()
+	apply_gravity(delta)
 	
 	if not horisontal_move(input):
-		apply_friction()
+		apply_friction(delta)
 		animatedSprite.animation = "Idle"
 	else:
-		apply_acceleration(input.x)
+		apply_acceleration(input.x, delta)
 		animatedSprite.animation = "Run"
 		animatedSprite.flip_h = input.x > 0
 
@@ -58,7 +58,7 @@ func move_state(input):
 		input_jump_release()
 		input_double_jump()
 		buffer_jump()
-		fast_fall()
+		fast_fall(delta)
 
 	var was_in_air = not is_on_floor()
 	var was_on_floor = is_on_floor() 
@@ -75,7 +75,7 @@ func move_state(input):
 		coyote_jump = true
 		coyoteJumpTimer.start()
 
-func climb_state(input):
+func climb_state(input, delta):
 	if not is_on_ladder(): state = MOVE
 	if input.length() != 0:
 		animatedSprite.animation = "Run"
@@ -101,14 +101,14 @@ func input_double_jump():
 		double_jump -= 1
 
 func buffer_jump():
-	if velocity.y > 0:
-		velocity.y += moveData.FALL_GRAVITY
-		velocity.y = min(velocity.y, 200)
-
-func fast_fall():
 	if Input.is_action_just_pressed("ui_up"):
 			buffered_jump = true
 			jumpBufferTimer.start()
+
+func fast_fall(delta):
+	if velocity.y > 0:
+		velocity.y += moveData.FALL_GRAVITY * delta
+		velocity.y = min(velocity.y, 200)
 
 func horisontal_move(input):
 	return input.x != 0
@@ -131,14 +131,14 @@ func is_on_ladder():
 	if not collider is Ladder: return false
 	return true
 
-func apply_gravity():
-	velocity.y += moveData.GRAVITY
+func apply_gravity(delta):
+	velocity.y += moveData.GRAVITY * delta
 
-func apply_friction():
-	velocity.x = move_toward(velocity.x, 0, moveData.FRICTION)
+func apply_friction(delta):
+	velocity.x = move_toward(velocity.x, 0, moveData.FRICTION * delta)
 
-func apply_acceleration(amount):
-	velocity.x = move_toward(velocity.x, moveData.MAX_SPEED*amount, moveData.ACCELERATION)
+func apply_acceleration(amount, delta):
+	velocity.x = move_toward(velocity.x, moveData.MAX_SPEED * amount, moveData.ACCELERATION * delta)
 
 func _on_JumpBufferTimer_timeout():
 	buffered_jump = false
